@@ -3,7 +3,9 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 
-public class Particle {
+import static ar.edu.itba.ss.Parser.L;
+
+public class Particle implements Comparable<Particle> {
 
     private int id;
     private double x;
@@ -129,9 +131,9 @@ public class Particle {
     public double calculatePeriodicDistance(Particle particle) {
         double xDistance = Math.abs(x - particle.x);
         // La distancia requerida "dando la vuelta" es menor a la directa
-        if (xDistance > Parser.GRID_LENGTH / 2) xDistance = Parser.GRID_LENGTH - xDistance;
+        if (xDistance > L / 2) xDistance = L - xDistance;
         double yDistance = Math.abs(y - particle.y);
-        if (yDistance > Parser.GRID_LENGTH / 2) yDistance = Parser.GRID_LENGTH - yDistance;
+        if (yDistance > L / 2) yDistance = L - yDistance;
         return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
     }
 

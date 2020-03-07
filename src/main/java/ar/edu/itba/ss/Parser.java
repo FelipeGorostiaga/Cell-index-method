@@ -3,32 +3,44 @@ package ar.edu.itba.ss;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Queue;
 import java.util.Scanner;
 
 public class Parser {
 
-    /* package private */
-    static double GRID_LENGTH;
-    static int NUM_PARTICLES;
-    static int M;
-    static List<Particle> particles = new LinkedList<Particle>();
+    static int N;
+    static Queue<Particle> particles = new LinkedList<>();
+    static double L;
 
-    public static void start() throws FileNotFoundException {
-        parse();
+    public static void start() throws Exception {
+        parseStaticFile();
+        parseDynamicFile();
     }
 
-    //static
-    private static void parse() throws FileNotFoundException {
-        File file = new File("test.txt");
+    private static void parseStaticFile() throws FileNotFoundException {
+        File file = new File(CommandParser.staticFilePath);
         Scanner sc = new Scanner(file);
-        NUM_PARTICLES = sc.nextInt();
-        GRID_LENGTH = sc.nextDouble();
-        for (int i = 0; i < NUM_PARTICLES; i++){
+        N = sc.nextInt();
+        L = sc.nextDouble();
+        for (int i = 0; i < N; i++){
             // id, radius, property
             particles.add(new Particle(i , sc.nextDouble(), sc.nextDouble()));
         }
     }
 
-    //TODO: DYNAMIC
+    private static void parseDynamicFile() throws FileNotFoundException{
+        File dynamicFile = new File(CommandParser.dynamicFilePath);
+        Scanner sc = new Scanner(dynamicFile);
+        sc.nextInt();
+        for (int i = 0; i < N; i++){
+            double x = sc.nextDouble();
+            double y = sc.nextDouble();
+            Particle particle = particles.poll();
+            particle.setX(x);
+            particle.setY(y);
+            particles.add(particle);
+        }
+
+    }
+
 }
