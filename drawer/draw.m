@@ -14,8 +14,8 @@ function animation(static_file, dynamic_file, output_file, m, particle)
   end
   plot = scatter(x,y,'b','filled');
   title('Index Cell Method');
-  xlabel('X position');
-  ylabel('Y position');
+  xlabel('X coordinate');
+  ylabel('Y coordinate');
   hold on;
   queryX = x(particle);
   queryY = y(particle);

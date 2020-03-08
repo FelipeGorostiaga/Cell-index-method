@@ -1,6 +1,7 @@
 package ar.edu.itba.ss;
 
 
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import static ar.edu.itba.ss.Parser.L;
 import static ar.edu.itba.ss.Parser.particles;
 
 public class App {
+
     //each cells contains the list of particles it has
     private static List<List<Particle>> cells;
 
@@ -35,13 +37,31 @@ public class App {
         String algorithm = bruteForce ? "Brute force algorithm" : "Cell index algorithm";
         System.out.println(algorithm  + " execution time: " + executionTime + " milliseconds");
         System.out.println("Total execution time: " + (endTime - parsingStartTime) + " milliseconds");
-        for (Particle p : particles){
+        printAndWriteToFile();
+
+    }
+
+    private static void printAndWriteToFile() {
+        File file = new File("/files/output.txt");
+        PrintWriter writer = null;
+        try {
+            writer = new PrintWriter("output.txt", "UTF-8");
+        } catch (Exception e) {
+            System.out.println("Couldnt write output to file...");
+        }
+
+
+        for (Particle p : particles) {
+            writer.print(p.getId());
             System.out.print(p.getId());
-            for (Particle neighbour : p.getNeighbours()){
+            for (Particle neighbour : p.getNeighbours()) {
+                writer.print(" " + neighbour.getId());
                 System.out.print(" " + neighbour.getId());
             }
+            writer.print("\n");
             System.out.print("\n");
         }
+        writer.close();
     }
 
     // O(N^2)
@@ -85,20 +105,20 @@ public class App {
 
     private static void checkNeighbourCells(Particle p, double cellX, double cellY) {
         if(periodicContour) {
-            if(cellX > M) cellX = 0;
-            if(cellY > M) cellY = 0;
-            if(cellX < 0) cellX = M;
-            if(cellY < 0) cellY = M;
+            if(cellX >= M) cellX = 0;
+            if(cellY >= M) cellY = 0;
+            if(cellX == -1) cellX = M - 1;
+            if(cellY == -1) cellY = M - 1;
         }
         else {
-            if(cellX < 0 || cellY < 0 || cellX > M || cellY > M) return;
+            if(cellX < 0 || cellY < 0 || cellX >= M || cellY >= M) return;
         }
         int currentCell = (int) (cellY * M + cellX);
         List<Particle> particlesInCurrentCell = cells.get(currentCell);
         for(Particle neighbourCellParticle: particlesInCurrentCell) {
             if(!neighbourCellParticle.equals(p)) {
                 double distance = p.calculateDistance(neighbourCellParticle);
-                if(distance <= RC) {
+                if(distance < RC) {
                     p.addNeighbour(neighbourCellParticle);
                     neighbourCellParticle.addNeighbour(p);
                 }
