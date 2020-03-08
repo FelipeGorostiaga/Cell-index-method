@@ -6,13 +6,13 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
-public class Parser {
+class Parser {
 
     static int N;
     static Queue<Particle> particles = new LinkedList<>();
     static double L;
 
-    public static void start() throws Exception {
+    static void start() throws Exception {
         parseStaticFile();
         parseDynamicFile();
     }
@@ -24,7 +24,7 @@ public class Parser {
         L = sc.nextDouble();
         for (int i = 0; i < N; i++){
             // id, radius, property
-            particles.add(new Particle(i , sc.nextDouble(), sc.nextDouble()));
+            particles.add(new Particle(i + 1 , sc.nextDouble(), sc.nextDouble()));
         }
     }
 

@@ -9,12 +9,10 @@ import static ar.edu.itba.ss.Parser.L;
 import static ar.edu.itba.ss.Parser.particles;
 
 public class App {
-
     //each cells contains the list of particles it has
     private static List<List<Particle>> cells;
 
     public static void main(String[] args) {
-
         CommandParser.parseCommandLine(args);
         long parsingStartTime = 0;
         try {
@@ -22,6 +20,7 @@ public class App {
             Parser.start();
         } catch (Exception e) {
             System.out.println("Invalid file name...");
+            System.exit(1);
         }
         System.out.println("Time taken to parse file: " + (System.currentTimeMillis() - parsingStartTime) + " ms");
         final long startingTime = System.currentTimeMillis();
@@ -34,9 +33,8 @@ public class App {
         final long endTime = System.currentTimeMillis();
         final long executionTime = endTime - startingTime;
         String algorithm = bruteForce ? "Brute force algorithm" : "Cell index algorithm";
-        System.out.println(algorithm  + "  execution time" + executionTime + " milliseconds");
+        System.out.println(algorithm  + " execution time: " + executionTime + " milliseconds");
         System.out.println("Total execution time: " + (endTime - parsingStartTime) + " milliseconds");
-
         for (Particle p : particles){
             System.out.print(p.getId());
             for (Particle neighbour : p.getNeighbours()){
@@ -106,8 +104,6 @@ public class App {
                 }
             }
         }
-
-
     }
 
     private static void initializeCells() {

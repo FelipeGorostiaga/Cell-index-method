@@ -32,47 +32,47 @@ public class Particle implements Comparable<Particle> {
         this.neighbours = new TreeSet<>();
     }
 
-    public int getId() {
+    int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         this.id = id;
     }
 
-    public double getX() {
+    double getX() {
         return x;
     }
 
-    public void setX(double x) {
+    void setX(double x) {
         this.x = x;
     }
 
-    public double getY() {
+    double getY() {
         return y;
     }
 
-    public void setY(double y) {
+    void setY(double y) {
         this.y = y;
     }
 
-    public double getRadius() {
+    double getRadius() {
         return radius;
     }
 
-    public void setRadius(double radius) {
+    void setRadius(double radius) {
         this.radius = radius;
     }
 
-    public double getProperty() {
+    double getProperty() {
         return property;
     }
 
-    public void setProperty(double property) {
+    void setProperty(double property) {
         this.property = property;
     }
 
-    public Set<Particle> getNeighbours() {
+    Set<Particle> getNeighbours() {
         return neighbours;
     }
 
@@ -80,28 +80,28 @@ public class Particle implements Comparable<Particle> {
         this.neighbours = neighbours;
     }
 
-    public double getCellX() {
+    double getCellX() {
         return cellX;
     }
 
-    public void setCellX(double cellX) {
+    void setCellX(double cellX) {
         this.cellX = cellX;
     }
 
-    public double getCellY() {
+    double getCellY() {
         return cellY;
     }
 
-    public void setCellY(double cellY) {
+    void setCellY(double cellY) {
         this.cellY = cellY;
     }
 
-    public double calculateDistance(Particle particle){
+    double calculateDistance(Particle particle){
         return Math.sqrt(Math.pow(x - particle.getX(), 2) + Math.pow(y - particle.getY(), 2))
                 - radius - particle.getRadius();
     }
 
-    public void addNeighbour(Particle neighbour){
+    void addNeighbour(Particle neighbour){
         this.neighbours.add(neighbour);
     }
 
@@ -128,7 +128,7 @@ public class Particle implements Comparable<Particle> {
                 '}';
     }
 
-    public double calculatePeriodicDistance(Particle particle) {
+    double calculatePeriodicDistance(Particle particle) {
         double xDistance = Math.abs(x - particle.x);
         // La distancia requerida "dando la vuelta" es menor a la directa
         if (xDistance > L / 2) xDistance = L - xDistance;

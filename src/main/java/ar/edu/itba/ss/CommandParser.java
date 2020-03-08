@@ -2,7 +2,7 @@ package ar.edu.itba.ss;
 
 import org.apache.commons.cli.*;
 
-public class CommandParser {
+class CommandParser {
 
     static String staticFilePath;
     static String dynamicFilePath;
@@ -30,7 +30,7 @@ public class CommandParser {
         System.exit(0);
     }
 
-    public static void parseCommandLine(String[] args) {
+    static void parseCommandLine(String[] args) {
         Options options = createOptions();
         CommandLineParser parser = new DefaultParser();
         try{
