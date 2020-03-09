@@ -35,8 +35,8 @@ public class App {
         final long endTime = System.currentTimeMillis();
         final long executionTime = endTime - startingTime;
         String algorithm = bruteForce ? "Brute force algorithm" : "Cell index algorithm";
-        System.out.println(algorithm  + " execution time: " + executionTime + " milliseconds");
-        System.out.println("Total execution time: " + (endTime - parsingStartTime) + " milliseconds");
+        System.out.println(algorithm  + " execution time: " + executionTime + " ms");
+        System.out.println("Total execution time: " + (endTime - parsingStartTime) + " ms");
         printAndWriteToFile();
 
     }
@@ -47,7 +47,7 @@ public class App {
         try {
             writer = new PrintWriter("output.txt", "UTF-8");
         } catch (Exception e) {
-            System.out.println("Couldnt write output to file...");
+            System.out.println("Couldn't write output to file...");
         }
 
 
@@ -66,18 +66,18 @@ public class App {
 
     // O(N^2)
     private static void bruteForceAlgorithm() {
-        final double rc = 0.1;
         for(Particle p1: particles) {
             for (Particle p2 : particles) {
                 if(!p1.equals(p2) && !p1.getNeighbours().contains(p2)) {
-
                     double distance;
-                    if (periodicContour){
+                    if(periodicContour) {
                         distance = p1.calculatePeriodicDistance(p2);
-                    }else{
+                    }
+                    else {
                         distance = p1.calculateDistance(p2);
                     }
-                    if (distance < RC){
+
+                    if (distance < RC) {
                         p1.addNeighbour(p2);
                         p2.addNeighbour(p1);
                     }
@@ -117,7 +117,13 @@ public class App {
         List<Particle> particlesInCurrentCell = cells.get(currentCell);
         for(Particle neighbourCellParticle: particlesInCurrentCell) {
             if(!neighbourCellParticle.equals(p)) {
-                double distance = p.calculateDistance(neighbourCellParticle);
+                double distance;
+                if(periodicContour) {
+                    distance = p.calculateDistance(neighbourCellParticle);
+                }
+                else {
+                    distance = p.calculatePeriodicDistance(neighbourCellParticle);
+                }
                 if(distance < RC) {
                     p.addNeighbour(neighbourCellParticle);
                     neighbourCellParticle.addNeighbour(p);

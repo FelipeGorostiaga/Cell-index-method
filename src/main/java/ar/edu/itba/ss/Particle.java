@@ -129,11 +129,15 @@ public class Particle implements Comparable<Particle> {
     }
 
     double calculatePeriodicDistance(Particle particle) {
-        double xDistance = Math.abs(x - particle.x);
+        double xDistance = Math.abs(this.x - particle.x);
         // La distancia requerida "dando la vuelta" es menor a la directa
-        if (xDistance > L / 2) xDistance = L - xDistance;
-        double yDistance = Math.abs(y - particle.y);
-        if (yDistance > L / 2) yDistance = L - yDistance;
+        if (xDistance > (L / 2)) {
+            xDistance = L - xDistance;
+        }
+        double yDistance = Math.abs(this.y - particle.y);
+        if (yDistance > (L / 2)) {
+            yDistance = L - yDistance;
+        }
         return Math.sqrt(Math.pow(xDistance, 2) + Math.pow(yDistance, 2));
     }
 
