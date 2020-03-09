@@ -6,8 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static ar.edu.itba.ss.CommandParser.*;
-import static ar.edu.itba.ss.Parser.L;
-import static ar.edu.itba.ss.Parser.particles;
+import static ar.edu.itba.ss.Parser.*;
 
 public class App {
 
@@ -26,6 +25,10 @@ public class App {
         }
         System.out.println("Time taken to parse file: " + (System.currentTimeMillis() - parsingStartTime) + " ms");
         final long startingTime = System.currentTimeMillis();
+        if(!checkMCondition()) {
+            System.out.println("Invalid M parameter value! Must comply with condition {M/L > (RC + 2 * maxRadius)} ");
+            System.exit(1);
+        }
         if(bruteForce) {
             bruteForceAlgorithm();
         }
@@ -84,6 +87,11 @@ public class App {
             }
         }
     }
+
+    private static boolean checkMCondition() {
+        return L/M > (RC + 2 * maxRadius);
+    }
+
 
     // O(N)
     private static void cellIndexAlgorithm() {
