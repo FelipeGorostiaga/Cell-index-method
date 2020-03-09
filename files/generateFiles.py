@@ -15,13 +15,13 @@ def generate_dynamic(n, l, name):
     for x in range(0, n):
         f.write('{} {}\n'.format(np.random.uniform(0, l), np.random.uniform(0,l)))
 
-def generate_files(index, n, l):
-    generate_static(n, l,'static-' + str(index) + '.txt')
-    generate_dynamic(n, l,'dynamic-' + str(index) + '.txt')
+def generate_files(n, l):
+    generate_static(n, l,'static-' + str(n) + '.txt')
+    generate_dynamic(n, l,'dynamic-' + str(n) + '.txt')
 
 n = [10,20,50,100,200,300,500,1000]
 
 i = 0
 for x in n:
     i += 1
-    generate_files(i, n[i-1], 20)
+    generate_files(n[i-1], 20)
