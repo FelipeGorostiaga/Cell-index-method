@@ -11,6 +11,7 @@ class Parser {
     static int N;
     static Queue<Particle> particles = new LinkedList<>();
     static double L;
+    static double maxRadius = 0;
 
     static void start() throws Exception {
         parseStaticFile();
@@ -22,9 +23,11 @@ class Parser {
         Scanner sc = new Scanner(file);
         N = sc.nextInt();
         L = sc.nextDouble();
-        for (int i = 0; i < N; i++){
+        for (int i = 0; i < N; i++) {
             // id, radius, property
-            particles.add(new Particle(i + 1 , sc.nextDouble(), sc.nextDouble()));
+            double radius =  sc.nextDouble();
+            if(radius > maxRadius) maxRadius = radius;
+            particles.add(new Particle(i + 1 , radius, sc.nextDouble()));
         }
     }
 
@@ -32,7 +35,7 @@ class Parser {
         File dynamicFile = new File(CommandParser.dynamicFilePath);
         Scanner sc = new Scanner(dynamicFile);
         sc.nextInt();
-        for (int i = 0; i < N; i++){
+        for (int i = 0; i < N; i++) {
             double x = sc.nextDouble();
             double y = sc.nextDouble();
             Particle particle = particles.poll();
@@ -40,7 +43,6 @@ class Parser {
             particle.setY(y);
             particles.add(particle);
         }
-
     }
 
 }
