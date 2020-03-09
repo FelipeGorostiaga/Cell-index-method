@@ -76,7 +76,6 @@ public class App {
                     else {
                         distance = p1.calculateDistance(p2);
                     }
-
                     if (distance < RC) {
                         p1.addNeighbour(p2);
                         p2.addNeighbour(p1);
@@ -119,10 +118,10 @@ public class App {
             if(!neighbourCellParticle.equals(p)) {
                 double distance;
                 if(periodicContour) {
-                    distance = p.calculateDistance(neighbourCellParticle);
+                    distance = p.calculatePeriodicDistance(neighbourCellParticle);
                 }
                 else {
-                    distance = p.calculatePeriodicDistance(neighbourCellParticle);
+                    distance = p.calculateDistance(neighbourCellParticle);
                 }
                 if(distance < RC) {
                     p.addNeighbour(neighbourCellParticle);
